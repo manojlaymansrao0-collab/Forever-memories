@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Stories</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+overflow-x:hidden;
+}
+
+/* Floating Hearts */
+
+.hearts{
+position:fixed;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:-1;
+overflow:hidden;
+}
+
+.heart{
+position:absolute;
+opacity:.3;
+animation:float 12s linear infinite;
+}
+
+@keyframes float{
+
+from{
+transform:translateY(100vh);
+}
+
+to{
+transform:translateY(-100px);
+}
+
+}
+
+/* Header */
+
+.header{
+text-align:center;
+padding:80px 20px;
+}
+
+.header h1{
+font-size:4rem;
+margin-bottom:15px;
+}
+
+.header p{
+color:#cbd5e1;
+}
+
+/* Story Container */
+
+.story{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+/* Chapters */
+
+.chapter{
+
+margin:80px 0;
+
+padding:35px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(15px);
+
+border:1px solid rgba(255,255,255,.1);
+
+border-radius:25px;
+
+opacity:0;
+
+transform:translateY(80px);
+
+transition:1s;
+}
+
+.chapter.show{
+
+opacity:1;
+
+transform:translateY(0);
+}
+
+.chapter-number{
+
+letter-spacing:3px;
+
+font-size:14px;
+
+color:#ec4899;
+
+margin-bottom:15px;
+}
+
+.chapter h2{
+
+font-size:2rem;
+
+margin-bottom:20px;
+}
+
+.chapter p{
+
+line-height:1.9;
+
+color:#e2e8f0;
+}
+
+/* Quote */
+
+.quote{
+
+margin-top:25px;
+
+padding:20px;
+
+border-left:4px solid #ec4899;
+
+background:rgba(255,255,255,.05);
+
+font-style:italic;
+
+color:#fbcfe8;
+}
+
+/* Placeholder */
+.photo{
+margin-top:25px;
+height:280px;
+border-radius:20px;
+overflow:hidden;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:linear-gradient(135deg,#1e293b,#334155);
+position:relative;
+}
+.photo img{
+width:100%;
+height:100%;
+object-fit:cover;
+object-position:center;
+
+display:block;
+transition:0.4s ease;
+}
+/* Button */
+
+.btn-wrap{
+text-align:center;
+margin:80px 0;
+}
+
+.btn{
+
+padding:18px 45px;
+
+border:none;
+
+border-radius:50px;
+
+font-size:18px;
+
+cursor:pointer;
+
+color:white;
+
+background:linear-gradient(
+45deg,
+#8b5cf6,
+#ec4899
+);
+
+transition:.3s;
+}
+
+.btn:hover{
+transform:scale(1.08);
+}
+
+/* Footer */
+
+.footer{
+text-align:center;
+padding:30px;
+color:#94a3b8;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.header h1{
+font-size:2.5rem;
+}
+
+.chapter h2{
+font-size:1.5rem;
+}
+
+}
+.navbar{
+
+position:fixed;
+
+top:20px;
+left:50%;
+
+transform:translateX(-50%);
+
+width:95%;
+max-width:1200px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:15px 25px;
+
+z-index:1000;
+}
+
+.logo{
+
+font-size:24px;
+
+font-weight:700;
+
+color:white;
+
+text-shadow:
+0 0 10px rgba(236,72,153,.6);
+}
+
+.nav-container{
+
+display:flex;
+
+gap:10px;
+
+padding:10px;
+
+border-radius:50px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.1);
+
+box-shadow:
+0 8px 30px rgba(0,0,0,.3);
+}
+
+.nav-container a{
+
+text-decoration:none;
+
+color:white;
+
+padding:12px 18px;
+
+border-radius:30px;
+
+font-size:15px;
+
+transition:.4s;
+}
+
+.nav-container a:hover{
+
+transform:translateY(-3px);
+
+background:rgba(255,255,255,.12);
+
+box-shadow:
+0 0 20px rgba(139,92,246,.5);
+}
+
+.active{
+
+background:linear-gradient(
+45deg,
+#8b5cf6,
+#ec4899
+);
+
+box-shadow:
+0 0 20px rgba(236,72,153,.6);
+}
+
+@media(max-width:900px){
+
+.navbar{
+
+flex-direction:column;
+
+gap:15px;
+}
+
+.nav-container{
+
+flex-wrap:wrap;
+
+justify-content:center;
+}
+
+}
+#memoriesContent{
+display:none;
+opacity:0;
+transition:1s;
+}
+#huntScreen{
+
+min-height:100vh;
+
+display:flex;
+flex-direction:column;
+
+justify-content:center;
+align-items:center;
+
+text-align:center;
+}
+
+.hunt-header h1{
+font-size:3rem;
+}
+
+.hunt-header p{
+margin-top:15px;
+color:#cbd5e1;
+}
+
+#progressBox{
+
+margin-top:25px;
+
+padding:12px 25px;
+
+border-radius:30px;
+
+background:rgba(255,255,255,.08);
+}
+
+.hunt-area{
+
+position:relative;
+
+width:100%;
+height:70vh;
+
+margin-top:30px;
+}
+
+.envelope{
+display: grid;
+
+font-size:70px;
+
+cursor:pointer;
+
+transition:.4s;
+
+animation:float 3s ease-in-out infinite;
+}
+
+.envelope:hover{
+
+transform:scale(1.2);
+}
+
+@keyframes float{
+
+0%,100%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-15px);
+}
+
+}
+
+#popup{
+
+display:none;
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,.9);
+
+justify-content:center;
+align-items:center;
+
+flex-direction:column;
+
+z-index:9999;
+}
+
+#popupContent{
+
+max-width:500px;
+
+padding:30px;
+
+background:rgba(255,255,255,.08);
+
+border-radius:20px;
+
+margin-bottom:20px;
+}
+
+#popup button{
+
+padding:15px 30px;
+
+border:none;
+
+border-radius:40px;
+
+cursor:pointer;
+
+color:white;
+
+background:linear-gradient(
+45deg,
+#8b5cf6,
+#ec4899
+);
+}
+
+#chestScreen{
+
+display:none;
+
+min-height:100vh;
+
+justify-content:center;
+align-items:center;
+
+text-align:center;
+}
+
+.chest{
+
+font-size:120px;
+
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+50%{
+transform:scale(1.1);
+}
+
+}
+
+.chest-box button{
+
+margin-top:20px;
+
+padding:15px 40px;
+
+border:none;
+
+border-radius:40px;
+
+cursor:pointer;
+
+color:white;
+
+background:linear-gradient(
+45deg,
+#8b5cf6,
+#ec4899
+);
+}
+@media(max-width:768px){
+
+.photo{
+height:220px;
+}
+
+}
+
+@media(max-width:480px){
+
+.photo{
+height:180px;
+}
+
+}
+.photo:hover img{
+transform:scale(1.05);
+}
+.music-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+padding:12px 18px;
+border:none;
+border-radius:50px;
+cursor:pointer;
+background:linear-gradient(45deg,#8b5cf6,#ec4899);
+color:white;
+font-size:14px;
+z-index:9999;
+box-shadow:0 0 15px rgba(0,0,0,.3);
+}
+
+</style>
+
+</head>
+
+<body>
+     <audio id="bgmusic" loop>
+  <source src="bg.mp3" type="audio/mpeg">
+</audio>
+    <div id="huntScreen">
+
+    <div class="hunt-header">
+
+        <h1>🔒 Memory Chest Locked</h1>
+
+        <p>
+            Find all 5 hidden key fragments to unlock the memories.
+        </p>
+
+        <div id="progressBox">
+            🗝️ Fragments: <span id="count">0</span>/5
+        </div>
+
+    </div>
+
+    <div class="hunt-area">
+
+        <div class="envelope" data-type="memory1">💌</div>
+        <div class="envelope" data-type="memory2">💌</div>
+        <div class="envelope" data-type="memory3">💌</div>
+
+        <div class="envelope" data-type="note1">💌</div>
+        <div class="envelope" data-type="note2">💌</div>
+
+        <div class="envelope" data-type="bonus1">💌</div>
+        <div class="envelope" data-type="bonus2">💌</div>
+
+        <div class="envelope" data-type="fragment">💌</div>
+        <div class="envelope" data-type="fragment">💌</div>
+        <div class="envelope" data-type="fragment">💌</div>
+        <div class="envelope" data-type="fragment">💌</div>
+        <div class="envelope" data-type="fragment">💌</div>
+
+    </div>
+
+</div>
+<div id="popup">
+
+    <div id="popupContent"></div>
+
+    <button onclick="closePopup()">
+        Continue
+    </button>
+
+</div>
+<div id="chestScreen">
+
+    <div class="chest-box">
+
+        <div class="chest">
+            💌
+        </div>
+
+        <h2>Memory Chest Unlocked</h2>
+
+        <button onclick="openMemories()">
+            Open Memories
+        </button>
+
+    </div>
+
+</div>
+<div id="memoriesContent">  
+    
+    <nav class="navbar">
+<div class="logo">
+    ✨ Memory Journey
+</div>
+
+<div class="nav-container">
+
+    <a href="index.html">🏠 Home</a>
+
+    <a href="timeline.html" >
+        📖 Timeline
+    </a>
+
+    <a href="gallery.html">
+        📸 Gallery
+    </a>
+
+    <a href="memories.html" class="active">
+        💌 Stories
+    </a>
+
+    <a href="surprise.html">
+        💌 Surprise
+    </a>
+
+</div>
+
+</nav>
+
+<div class="hearts" id="hearts"></div>
+
+<section class="header">
+
+<h1>💌 Memory Stories</h1>
+
+<p>
+Some memories deserve more than a photo.
+They deserve a story.
+</p>
+
+</section>
+
+<div class="story">
+
+<div class="chapter">
+
+<div class="chapter-number">
+CHAPTER 01
+</div>
+
+<h2>The Beginning ✨</h2>
+
+<p>
+
+Every story starts somewhere.
+
+A simple moment.
+A simple conversation.
+
+At that time,
+nobody knew how important that day
+would become.
+
+Yet it became the beginning of
+something unforgettable.
+
+</p>
+
+<div class="quote">
+
+❤️ Every great story starts with a single moment.
+
+</div>
+
+<div class="photo">
+    <img src="image5.jpg" alt="">
+</div>
+
+</div>
+
+<div class="chapter">
+
+<div class="chapter-number">
+CHAPTER 02
+</div>
+
+<h2>Moments We Treasure 🎉</h2>
+
+<p>
+
+There were countless smiles,
+laughter and unforgettable experiences.
+
+Some lasted only minutes.
+
+But the memories they created
+will last forever.
+
+</p>
+
+<div class="quote">
+
+✨ Happiness becomes a memory worth keeping.
+
+</div>
+
+<div class="photo">
+    <img src="image6.jpg" alt="">
+</div>
+
+</div>
+
+<div class="chapter">
+
+<div class="chapter-number">
+CHAPTER 03
+</div>
+
+<h2>Adventures Together 🌍</h2>
+
+<p>
+
+Every journey had a story.
+
+Every destination brought new memories.
+
+The best part was never the place.
+
+It was sharing the moment.
+
+</p>
+
+<div class="quote">
+
+🌎 The best journeys are shared.
+
+</div>
+
+<div class="photo">
+    <img src="image7.jpg" alt="">
+</div>
+
+</div>
+
+<div class="chapter">
+
+<div class="chapter-number">
+CHAPTER 04
+</div>
+
+<h2>The Story Continues ❤️</h2>
+
+<p>
+
+The most beautiful thing about memories
+is that they never truly end.
+
+Every day creates another page.
+
+Every moment writes another chapter.
+
+And the best chapters are still ahead.
+
+</p>
+
+<div class="quote">
+
+💖 This is not the end of the story.
+
+</div>
+
+<div class="photo">
+    <img src="image8.jpg" alt="">
+</div>
+
+</div>
+
+<div class="btn-wrap">
+
+<button class="btn" onclick="goToSurprise()">
+
+Open Final Surprise 💌
+
+</button>
+
+</div>
+
+</div>
+
+<div class="footer">
+
+✨ Thank you for being part of the journey ✨
+
+</div>
+</div>
+</div> 
+<script>
+
+/* Scroll Reveal */
+
+const observer =
+new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("show");
+
+}
+
+});
+
+},{
+threshold:0.2
+});
+
+document
+.querySelectorAll(".chapter")
+.forEach(el=>observer.observe(el));
+
+/* Floating Hearts */
+
+const hearts =
+document.getElementById("hearts");
+
+for(let i=0;i<35;i++){
+
+let heart =
+document.createElement("div");
+
+heart.className="heart";
+
+heart.innerHTML=
+["❤️","💖","✨"][Math.floor(Math.random()*3)];
+
+heart.style.left=
+Math.random()*100+"%";
+
+heart.style.fontSize=
+(Math.random()*20+10)+"px";
+
+heart.style.animationDuration=
+(Math.random()*8+6)+"s";
+
+hearts.appendChild(heart);
+
+}
+
+/* Next Page */
+
+function goToSurprise(){
+
+window.location.href=
+"surprise.html";
+
+}
+
+</script>
+<script>
+
+let fragments = 0;
+
+const envelopes =
+document.querySelectorAll(".envelope");
+
+/* RANDOM ENVELOPE POSITIONS */
+
+const usedPositions = [];
+
+envelopes.forEach(env=>{
+
+    let x,y;
+    let valid = false;
+
+    while(!valid){
+
+        x = Math.random() *
+        (window.innerWidth - 150);
+
+        y = Math.random() *
+        (window.innerHeight - 250);
+
+        valid = true;
+
+        for(let pos of usedPositions){
+
+            const distance =
+            Math.sqrt(
+                (x-pos.x)*(x-pos.x) +
+                (y-pos.y)*(y-pos.y)
+            );
+
+            if(distance < 120){
+
+                valid = false;
+                break;
+            }
+        }
+    }
+
+    usedPositions.push({x,y});
+
+    env.style.position = "absolute";
+    env.style.left = x + "px";
+    env.style.top = y + "px";
+
+});
+
+/* EXISTING CLICK LOGIC */
+
+envelopes.forEach(env=>{
+
+env.addEventListener("click",()=>{
+
+    if(env.classList.contains("opened"))
+    return;
+
+    env.classList.add("opened");
+
+    let type = env.dataset.type;
+
+    let message = "";
+
+    if(type==="fragment"){
+
+        fragments++;
+
+        document
+        .getElementById("count")
+        .innerText = fragments;
+
+        message =
+        "✨ Key Fragment Found!<br><br>" +
+        fragments +
+        "/5 Collected";
+        
+
+    }
+   else if(type==="memory1"){
+
+message =
+"📸 Hidden Memory<br><br>" +
+"The first hello was ordinary. The memory it created wasn't.";
+
+}
+
+else if(type==="memory2"){
+
+message =
+"📸 Hidden Memory<br><br>" +
+"Some smiles disappear in seconds, but remain in memories forever.";
+
+}
+
+else if(type==="memory3"){
+
+message =
+"📸 Hidden Memory<br><br>" +
+"A random day became a chapter worth remembering.";
+
+}
+
+else if(type==="note1"){
+
+message =
+"💌 Secret Note<br><br>" +
+"You make ordinary moments feel special.";
+
+}
+
+else if(type==="note2"){
+
+message =
+"💌 Secret Note<br><br>" +
+"The best journeys are the ones shared together.";
+
+}
+
+else if(type==="bonus1"){
+
+message =
+"💌 Bonus Surprise<br><br>" +
+"Curiosity led you here. Just like curiosity started many great stories.";
+
+}
+
+else if(type==="bonus2"){
+
+message =
+"💌 Bonus Surprise<br><br>" +
+"Not every treasure is hidden. Some are remembered.";
+
+}
+    
+    else{
+
+    const surprises = [
+
+    "💌 Bonus Surprise<br><br>A secret reminder: You are someone's favorite memory.",
+
+    "💌 Bonus Surprise<br><br>Not every treasure is gold. Some treasures are moments shared together.",
+
+    "💌 Bonus Surprise<br><br>Fun Fact: This envelope wasn't required, but curiosity brought you here ❤️",
+
+    "💌 Bonus Surprise<br><br>You discovered a hidden surprise. Just like the unexpected moments that became unforgettable memories.",
+
+    "💌 Bonus Surprise<br><br>The journey isn't about finding keys. It's about rediscovering memories."
+
+    ];
+
+    message =
+    surprises[Math.floor(Math.random()*surprises.length)];
+
+    }
+
+    document
+    .getElementById("popupContent")
+    .innerHTML = message;
+
+    document
+    .getElementById("popup")
+    .style.display="flex";
+
+    env.style.opacity=".3";
+
+    if(fragments===5){
+        
+
+        message =
+        "💌 Final Key Fragment Found!<br><br>" +
+        "You've collected all fragments of the Memory Key. The Memory Chest can now be opened.";
+
+        
+
+        setTimeout(()=>{
+
+            document
+            .getElementById("huntScreen")
+            .style.display="none";
+
+            document
+            .getElementById("chestScreen")
+            .style.display="flex";
+           
+
+        },1000);
+    
+    }
+
+});
+
+
+});
+function closePopup(){
+
+    document
+    .getElementById("popup")
+    .style.display="none";
+
+}
+function openMemories(){
+
+    document.getElementById("chestScreen")
+    .style.display = "none";
+
+    const page =
+    document.getElementById("memoriesContent");
+
+    page.style.display = "block";
+
+    setTimeout(()=>{
+
+        page.style.opacity = "1";
+
+    },100);
+
+}
+document.addEventListener("keydown", function(e){
+
+    if(e.key !== "Enter") return;
+
+    const popup =
+    document.getElementById("popup");
+
+    const chest =
+    document.getElementById("chestScreen");
+
+    if(
+        popup &&
+        getComputedStyle(popup).display !== "none"
+    ){
+
+        closePopup();
+        return;
+
+    }
+
+    if(
+        chest &&
+        getComputedStyle(chest).display !== "none"
+    ){
+
+        openMemories();
+        return;
+
+    }
+
+});
+</script>
+<script>
+const music = document.getElementById("bgmusic");
+
+// restore time if exists
+const savedTime = localStorage.getItem("musicTime");
+if (savedTime) {
+  music.currentTime = parseFloat(savedTime);
+}
+
+// try autoplay (starts after first click)
+window.addEventListener("click", () => {
+  music.play();
+}, { once: true });
+
+// save progress continuously
+setInterval(() => {
+  if (!music.paused) {
+    localStorage.setItem("musicTime", music.currentTime);
+  }
+}, 1000);
+</script>
+<button id="musicBtn" class="music-btn">🔊 Music On</button>
+
+<script>
+const audio = document.getElementById("bgmusic");
+const btn = document.getElementById("musicBtn");
+
+// ensure correct initial state
+function updateButton() {
+  if (audio.paused) {
+    btn.innerHTML = "🔇 Music Off";
+  } else {
+    btn.innerHTML = "🔊 Music On";
+  }
+}
+
+// click toggle
+btn.addEventListener("click", async () => {
+  if (audio.paused) {
+    try {
+      await audio.play();
+    } catch (err) {
+      console.log("Play blocked:", err);
+    }
+  } else {
+    audio.pause();
+  }
+
+  updateButton();
+});
+
+// set correct state on load
+window.addEventListener("load", () => {
+  updateButton();
+});
+</script>
+</body>
+
+
+
+</html>

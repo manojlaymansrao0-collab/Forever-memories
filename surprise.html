@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final Surprise</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+background:linear-gradient(
+135deg,
+#050816,
+#1e1b4b,
+#312e81
+);
+
+height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+color:white;
+
+overflow:hidden;
+
+text-align:center;
+}
+
+/* Gift */
+
+.gift{
+
+font-size:150px;
+
+cursor:pointer;
+
+transition:.5s;
+}
+
+.gift:hover{
+
+transform:scale(1.1);
+}
+
+/* Letter */
+
+.letter{
+
+display:none;
+
+width:90%;
+max-width:700px;
+
+padding:35px;
+
+margin-top:30px;
+
+border-radius:25px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(15px);
+
+border:1px solid rgba(255,255,255,.1);
+
+animation:fadeIn 1s ease;
+}
+
+.letter h1{
+
+margin-bottom:20px;
+}
+
+.letter p{
+
+line-height:1.9;
+
+color:#e2e8f0;
+}
+
+/* Button */
+
+.btn{
+
+margin-top:25px;
+
+padding:15px 40px;
+
+border:none;
+
+border-radius:50px;
+
+cursor:pointer;
+
+font-size:18px;
+
+background:linear-gradient(
+45deg,
+#8b5cf6,
+#ec4899
+);
+
+color:white;
+}
+
+/* Confetti */
+
+.confetti{
+
+position:absolute;
+
+font-size:25px;
+
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+
+from{
+transform:translateY(-100px);
+}
+
+to{
+transform:translateY(110vh);
+}
+
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(30px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+.navbar{
+display: none;
+position:fixed;
+
+top:20px;
+left:50%;
+
+transform:translateX(-50%);
+
+width:95%;
+max-width:1200px;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:15px 25px;
+
+z-index:1000;
+}
+
+.logo{
+
+font-size:24px;
+
+font-weight:700;
+
+color:white;
+
+text-shadow:
+0 0 10px rgba(236,72,153,.6);
+}
+
+.nav-container{
+
+display:flex;
+
+gap:10px;
+
+padding:10px;
+
+border-radius:50px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,255,255,.1);
+
+box-shadow:
+0 8px 30px rgba(0,0,0,.3);
+}
+
+.nav-container a{
+
+text-decoration:none;
+
+color:white;
+
+padding:12px 18px;
+
+border-radius:30px;
+
+font-size:15px;
+
+transition:.4s;
+}
+
+.nav-container a:hover{
+
+transform:translateY(-3px);
+
+background:rgba(255,255,255,.12);
+
+box-shadow:
+0 0 20px rgba(139,92,246,.5);
+}
+
+.active{
+
+background:linear-gradient(
+45deg,
+#8b5cf6,
+#ec4899
+);
+
+box-shadow:
+0 0 20px rgba(236,72,153,.6);
+}
+
+@media(max-width:900px){
+
+.navbar{
+
+flex-direction:column;
+
+gap:15px;
+}
+
+.nav-container{
+
+flex-wrap:wrap;
+
+justify-content:center;
+}
+
+}
+#gift{
+transition:1s ease;
+}
+
+#gift.opened{
+opacity:0;
+transform:scale(0) rotate(180deg);
+}
+.scrapbook{
+
+display:none;
+
+width:90%;
+max-width:850px;
+
+padding:30px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border-radius:30px;
+
+border:1px solid rgba(255,255,255,.1);
+}
+
+.page{
+
+display:none;
+
+animation:fadeIn .8s ease;
+}
+
+.active-page{
+display:block;
+}
+
+.photo-placeholder{
+
+height:250px;
+
+margin-bottom:20px;
+
+border-radius:20px;
+
+display:flex;
+
+justify-content:center;
+align-items:center;
+
+background:linear-gradient(
+135deg,
+#1e293b,
+#334155
+);
+
+font-size:24px;
+
+color:#94a3b8;
+}
+
+.controls{
+
+display:flex;
+
+justify-content:space-between;
+
+margin-top:30px;
+}
+/* SCRAPBOOK */
+
+.scrapbook{
+
+display:none;
+
+width:95%;
+max-width:1200px;
+
+min-height:750px;
+
+padding:40px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border-radius:30px;
+
+border:1px solid rgba(255,255,255,.15);
+
+animation:fadeIn 1s ease;
+}
+
+/* Pages */
+
+.page{
+
+display:none;
+
+padding:40px 30px;
+
+min-height:500px;
+}
+
+.active-page{
+display:block;
+}
+
+/* Bigger Headings */
+
+.page h2{
+
+font-size:3rem;
+
+margin-bottom:25px;
+
+color:white;
+}
+
+/* Bigger Text */
+
+.page p{
+
+font-size:1.4rem;
+
+line-height:2.2;
+
+color:#e2e8f0;
+}
+
+/* Page Counter */
+
+#pageCounter{
+
+font-size:1.2rem;
+
+margin-top:25px;
+
+opacity:.8;
+}
+
+/* Controls */
+
+.controls{
+
+margin-top:35px;
+
+display:flex;
+
+justify-content:center;
+
+gap:20px;
+}
+
+.controls .btn{
+
+padding:18px 45px;
+
+font-size:20px;
+}
+
+/* Hidden Note Section */
+
+.secret-note{
+
+margin-top:35px;
+
+padding:30px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,.05);
+}
+
+.secret-note h3{
+
+font-size:2rem;
+
+margin-bottom:20px;
+}
+
+#secretMessage{
+
+font-size:1.3rem;
+
+line-height:2;
+}
+
+/* Hidden Note Button */
+
+.secret-note .btn{
+
+margin-top:20px;
+
+font-size:18px;
+
+padding:15px 35px;
+}
+@media(max-width:768px){
+
+.scrapbook{
+
+width:95%;
+
+min-height:650px;
+
+padding:25px;
+}
+
+.page h2{
+
+font-size:2rem;
+}
+
+.page p{
+
+font-size:1.1rem;
+}
+
+.controls .btn{
+
+font-size:16px;
+
+padding:12px 25px;
+}
+
+}
+.page{
+display:none;
+}
+
+.active-page{
+display:block;
+animation:fadeIn .8s ease;
+}
+
+.photo-placeholder{
+width:100%;
+max-width:650px;
+height:320px;
+
+margin:20px auto;
+
+border-radius:20px;
+overflow:hidden;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:linear-gradient(135deg,#1e293b,#334155);
+position:relative;
+}
+.photo-placeholder img{
+width:100%;
+height:100%;
+object-fit:cover;
+object-position:center;
+
+display:block;
+transition:0.4s ease;
+}
+@media(max-width:768px){
+
+.photo-placeholder{
+height:240px;
+max-width:100%;
+}
+
+.page h1{
+font-size:2rem;
+}
+
+}
+
+@media(max-width:480px){
+
+.photo-placeholder{
+height:200px;
+}
+
+}
+.photo-placeholder:hover img{
+transform:scale(1.05);
+}
+.memory-card{
+
+padding:18px;
+
+margin:12px 0;
+
+border-radius:15px;
+
+background:rgba(255,255,255,.08);
+}
+
+.wall{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+}
+
+.wall-card{
+
+padding:25px;
+
+border-radius:15px;
+
+background:rgba(255,255,255,.08);
+}
+
+.controls{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-top:30px;
+}
+
+#pageCounter{
+
+font-size:18px;
+
+font-weight:bold;
+}
+
+.music-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+padding:12px 18px;
+border:none;
+border-radius:50px;
+cursor:pointer;
+background:linear-gradient(45deg,#8b5cf6,#ec4899);
+color:white;
+font-size:14px;
+z-index:9999;
+box-shadow:0 0 15px rgba(0,0,0,.3);
+}
+
+
+</style>
+
+</head>
+
+<body>
+     <audio id="bgmusic" loop>
+  <source src="bg.mp3" type="audio/mpeg">
+</audio>
+    <h1 id="finalTitle">
+✨ You Made It ✨
+</h1>
+
+<p id="finalText">
+Every challenge has been completed.
+One final surprise awaits...
+</p>
+
+<div id="gift" class="gift">
+
+🎁
+
+</div>
+
+<!-- <div id="letter" class="letter">
+
+<h1>❤️ A Special Message ❤️</h1>
+
+<p>
+
+Thank you for being a part of this beautiful journey.
+
+Every smile,
+every memory,
+every moment shared has become a treasure.
+
+This website is not just a collection of photos.
+
+It is a collection of emotions,
+stories,
+and unforgettable memories.
+
+The story doesn't end here.
+
+The best chapters are still waiting to be written.
+
+✨ Forever Grateful ✨
+
+</p>
+
+<button class="btn" onclick="restartJourney()">
+
+Replay Journey
+
+</button>
+
+</div> -->
+<!-- <div id="scrapbook" class="scrapbook">
+
+<div class="page active-page">
+
+    <div class="photo-placeholder">
+        📸 Add First Photo
+    </div>
+
+    <h2>The Beginning ❤️</h2>
+
+    <p>
+        Every beautiful story starts with a single moment.
+    </p>
+
+</div>
+
+<div class="page">
+
+    <div class="photo-placeholder">
+        📸 Add Second Photo
+    </div>
+
+    <h2>Favorite Memory ✨</h2>
+
+    <p>
+        One memory that always brings a smile.
+    </p>
+
+</div>
+
+<div class="page">
+
+    <div class="photo-placeholder">
+        📸 Add Third Photo
+    </div>
+
+    <h2>Special Moments 🎂</h2>
+
+    <p>
+        Laughter, happiness and unforgettable days.
+    </p>
+
+</div>
+
+<div class="page">
+
+    <div class="photo-placeholder">
+        📸 Add Fourth Photo
+    </div>
+
+    <h2>Things I Appreciate ❤️</h2>
+
+    <p>
+        • Kindness<br>
+        • Support<br>
+        • Beautiful Memories<br>
+        • Endless Smiles
+    </p>
+
+</div>
+
+<div class="page">
+
+    <h1>💌 Final Letter</h1>
+
+    <p>
+        Thank you for being a part of this journey.
+
+        Every page in this scrapbook holds a memory,
+        but the best chapters are still waiting to be written.
+
+        ✨ Forever Grateful ✨
+    </p>
+
+    <button class="btn" onclick="restartJourney()">
+        Replay Journey
+    </button>
+
+</div>
+
+<div class="controls">
+
+<button class="btn" onclick="prevPage()">
+⬅ Previous
+</button>
+
+<button class="btn" onclick="nextPage()">
+Next ➡
+</button>
+
+</div>
+
+</div> -->
+<div id="scrapbook" class="scrapbook">
+
+<div class="page active-page">
+
+<h1>❤️ Chapter One</h1>
+
+<p>
+Every journey starts with a single moment.
+
+A simple conversation.
+A simple meeting.
+
+Nobody knew that day would become
+the beginning of a beautiful story.
+
+</p>
+
+<div class="photo-placeholder">
+    <img src="image9.jpg" alt="">
+</div>
+
+</div>
+
+<div class="page">
+
+<h1>📸 Favorite Memories</h1>
+
+<div class="photo-placeholder">
+    <img src="image11.jpg" alt="">
+</div>
+
+<p>
+Some moments become unforgettable.
+
+Every smile,
+every laugh,
+every picture here tells a story.
+
+</p>
+
+</div>
+
+<div class="page">
+
+<h1>✨ Things I Appreciate</h1>
+
+<div class="memory-card">
+❤️ Your kindness
+</div>
+
+<div class="memory-card">
+🌟 Your support
+</div>
+
+<div class="memory-card">
+😊 Your smile
+</div>
+
+<div class="memory-card">
+🎉 The memories we created
+</div>
+
+</div>
+
+<div class="page">
+
+<h1>🎯 Journey Statistics</h1>
+
+<p>
+📖 Chapters Completed : 4<br><br>
+
+🧩 Puzzles Solved : 3<br><br>
+
+📸 Memories Collected : Countless<br><br>
+
+❤️ Friendship Level : Infinite
+
+</p>
+
+</div>
+
+<div class="page">
+
+<h1>💌 Hidden Notes</h1>
+
+<div id="secretMessage">
+
+Click below to reveal secret notes.
+
+</div>
+
+<button class="btn"
+onclick="nextSecret()">
+
+Reveal Message
+
+</button>
+
+</div>
+
+<div class="page">
+
+<h1>🌟 Memory Wall</h1>
+
+<div class="wall">
+
+<div class="wall-card">
+First Adventure
+</div>
+
+<div class="wall-card">
+Favorite Day
+</div>
+
+<div class="wall-card">
+Best Laugh
+</div>
+
+<div class="wall-card">
+Special Moment
+</div>
+
+</div>
+
+</div>
+
+<div class="page">
+
+<h1>❤️ Final Letter ❤️</h1>
+
+<h1>🏆 Journey Completed</h1>
+
+<p>
+
+You solved every puzzle.
+
+You unlocked every memory.
+
+You discovered every hidden treasure.
+
+But this website was never about photos.
+
+It was about moments.
+
+About stories.
+
+About memories that deserve to be remembered.
+
+And this is only the beginning.
+
+✨ The next chapter is waiting to be written ✨
+
+</p>
+
+<button class="btn"
+onclick="restartJourney()">
+
+Replay Journey
+
+</button>
+
+</div>
+
+<div class="controls">
+
+<button class="btn"
+onclick="prevPage()">
+
+⬅ Previous
+
+</button>
+
+<div id="pageCounter">
+
+Page 1 / 7
+
+</div>
+
+<button class="btn"
+onclick="nextPage()">
+
+Next ➡
+
+</button>
+
+</div>
+
+</div>
+<script>
+const gift =
+document.getElementById("gift");
+
+/* =========================
+   OPEN GIFT
+========================= */
+
+gift.addEventListener("click",()=>{
+
+gift.innerHTML="🎊";
+
+gift.style.transition="1s";
+
+gift.style.transform="scale(0)";
+
+document.querySelector(".navbar")
+.style.display="flex";
+
+document.getElementById("finalTitle")
+.style.display="none";
+
+document.getElementById("finalText")
+.style.display="none";
+
+setTimeout(()=>{
+
+const scrapbook =
+document.getElementById("scrapbook");
+
+scrapbook.style.display="block";
+
+scrapbook.style.opacity="0";
+
+setTimeout(()=>{
+
+scrapbook.style.transition="1s";
+scrapbook.style.opacity="1";
+
+},100);
+
+startConfetti();
+
+},800);
+
+});
+
+/* =========================
+   CONFETTI
+========================= */
+
+function startConfetti(){
+
+for(let i=0;i<120;i++){
+
+let confetti =
+document.createElement("div");
+
+confetti.className="confetti";
+
+confetti.innerHTML =
+["🎉","✨","💖","🎊"]
+[Math.floor(Math.random()*4)];
+
+confetti.style.left =
+Math.random()*100+"%";
+
+confetti.style.animationDuration =
+(Math.random()*3+2)+"s";
+
+document.body.appendChild(confetti);
+
+}
+
+}
+
+/* =========================
+   RESTART JOURNEY
+========================= */
+
+function restartJourney(){
+
+window.location.href =
+"index.html";
+
+}
+
+/* =========================
+   SCRAPBOOK PAGES
+========================= */
+
+let currentPage = 0;
+
+const pages =
+document.querySelectorAll(".page");
+
+function showPage(index){
+
+pages.forEach(page =>
+page.classList.remove("active-page"));
+
+pages[index]
+.classList.add("active-page");
+
+/* Update Counter */
+
+document.getElementById("pageCounter")
+.innerHTML =
+`Page ${index + 1} / ${pages.length}`;
+
+/* Button States */
+
+const nextBtn =
+document.querySelector(".controls .btn:last-child");
+
+const prevBtn =
+document.querySelector(".controls .btn:first-child");
+
+prevBtn.style.opacity =
+(index === 0) ? "0.5" : "1";
+
+nextBtn.style.opacity =
+(index === pages.length-1) ? "0.5" : "1";
+
+}
+
+function nextPage(){
+
+if(currentPage < pages.length - 1){
+
+currentPage++;
+
+showPage(currentPage);
+
+}
+
+}
+
+function prevPage(){
+
+if(currentPage > 0){
+
+currentPage--;
+
+showPage(currentPage);
+
+}
+
+}
+
+/* First Page */
+
+showPage(0);
+
+/* =========================
+   HIDDEN NOTES
+========================= */
+
+const secretNotes = [
+
+"❤️ Every memory here has a special place.",
+
+"✨ Some people make ordinary moments unforgettable.",
+
+"📸 The best photos are the ones filled with emotions.",
+
+"🌟 Some chapters end, but memories remain forever.",
+
+"💌 Thank you for being part of this story."
+
+];
+
+let secretIndex = 0;
+
+function nextSecret(){
+
+document.getElementById("secretMessage")
+.innerHTML =
+secretNotes[secretIndex];
+
+secretIndex++;
+
+if(secretIndex >= secretNotes.length){
+
+secretIndex = 0;
+
+}
+
+}
+
+/* =========================
+   ENTER KEY SUPPORT
+========================= */
+
+document.addEventListener("keydown",(e)=>{
+
+if(e.key === "Enter"){
+
+const scrapbook =
+document.getElementById("scrapbook");
+
+if(scrapbook.style.display === "block"){
+
+if(currentPage < pages.length - 1){
+
+nextPage();
+
+}
+else{
+
+restartJourney();
+
+}
+
+}
+else{
+
+gift.click();
+
+}
+
+}
+
+});
+</script>
+<script>
+const music = document.getElementById("bgmusic");
+
+// restore time if exists
+const savedTime = localStorage.getItem("musicTime");
+if (savedTime) {
+  music.currentTime = parseFloat(savedTime);
+}
+
+// try autoplay (starts after first click)
+window.addEventListener("click", () => {
+  music.play();
+}, { once: true });
+
+// save progress continuously
+setInterval(() => {
+  if (!music.paused) {
+    localStorage.setItem("musicTime", music.currentTime);
+  }
+}, 1000);
+</script>
+<button id="musicBtn" class="music-btn">🔊 Music On</button>
+
+<script>
+const audio = document.getElementById("bgmusic");
+const btn = document.getElementById("musicBtn");
+
+// ensure correct initial state
+function updateButton() {
+  if (audio.paused) {
+    btn.innerHTML = "🔇 Music Off";
+  } else {
+    btn.innerHTML = "🔊 Music On";
+  }
+}
+
+// click toggle
+btn.addEventListener("click", async () => {
+  if (audio.paused) {
+    try {
+      await audio.play();
+    } catch (err) {
+      console.log("Play blocked:", err);
+    }
+  } else {
+    audio.pause();
+  }
+
+  updateButton();
+});
+
+// set correct state on load
+window.addEventListener("load", () => {
+  updateButton();
+});
+</script>
+
+<nav class="navbar">
+
+
+<div class="logo">
+    ✨ Memory Journey
+</div>
+
+<div class="nav-container">
+
+    <a href="index.html">🏠 Home</a>
+
+    <a href="timeline.html" >
+        📖 Timeline
+    </a>
+
+    <a href="gallery.html">
+        📸 Gallery
+    </a>
+
+    <a href="memories.html" >
+        💌 Stories
+    </a>
+
+    <a href="surprise.html" class="active">
+        🎁 Surprise
+    </a>
+
+</div>
+
+</nav>
+
+</body>
+
+
+
+</html>
