@@ -159,7 +159,7 @@ min-height:100px;
 margin-bottom:30px;
 
 visibility:visible;
-font-size:1rem;
+font-size: 1rem;
 }
 
 }
@@ -509,33 +509,76 @@ Every memory tells a story...
 </div>
 
 </div>
+
 <script>
-const message = "Welcome to a special place where moments become memories and memories become timeless stories. Today, you will relive a journey filled with happiness, laughter, surprises, and unforgettable moments.";
+
+/* Typewriter */
+
+const message =
+"Welcome to a special place where moments become memories and memories become timeless stories. Today, you will relive a journey filled with happiness, laughter, surprises, and unforgettable moments.";
 
 let i = 0;
-let typingStarted = false;
 
-function typeWriter() {
-  const el = document.getElementById("text");
+function typeWriter(){
 
-  if (!typingStarted) {
-    typingStarted = true;
-    el.innerHTML = "";
-  }
+if(i < message.length){
 
-  if (i < message.length) {
-    el.innerHTML += message.charAt(i);
-    i++;
-    setTimeout(typeWriter, 80);
-  }
+document.getElementById("text").innerHTML += message.charAt(i);
+
+i++;
+
+setTimeout(typeWriter,80);
+
 }
 
-/* Start automatically */
-window.addEventListener("load", () => {
-  i = 0;
-  typingStarted = false;
-  typeWriter();
-});
+}
+
+typeWriter();
+
+/* Start Journey */
+
+function startJourney(){
+
+document.body.style.transition="1s";
+
+document.body.style.opacity="0";
+
+setTimeout(()=>{
+
+window.location.href="timeline.html";
+
+},1000);
+
+}
+
+/* Create Stars */
+
+const stars =
+document.getElementById("stars");
+
+for(let i=0;i<60;i++){
+
+const star =
+document.createElement("div");
+
+star.classList.add("star");
+
+star.innerHTML="✦";
+
+star.style.left =
+Math.random()*100+"%";
+
+star.style.fontSize =
+Math.random()*20+10+"px";
+
+star.style.animationDuration =
+Math.random()*10+5+"s";
+
+stars.appendChild(star);
+
+}
+
+
 </script>
 <script>
     window.onload = function(){
@@ -568,7 +611,10 @@ setTimeout(() => {
 
     modal.style.display = "none";
 
+    document.getElementById("text").innerHTML = "";
+    i = 0;
 
+    typeWriter();
 
 }, 800);
 
