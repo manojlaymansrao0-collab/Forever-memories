@@ -437,6 +437,166 @@ font-size:14px;
 z-index:9999;
 box-shadow:0 0 15px rgba(0,0,0,.3);
 }
+/* IMAGE POPUP */
+
+.image-popup{
+
+display:none;
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,.9);
+
+z-index:99999;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+}
+
+
+.image-popup img{
+
+max-width:90%;
+
+max-height:70%;
+
+border-radius:25px;
+
+box-shadow:0 0 40px rgba(255,255,255,.2);
+
+animation:zoom .5s ease;
+
+}
+
+
+.popup-text{
+
+margin-top:25px;
+
+width:85%;
+
+max-width:700px;
+
+padding:20px;
+
+background:rgba(255,255,255,.1);
+
+backdrop-filter:blur(15px);
+
+border-radius:20px;
+
+text-align:center;
+
+font-size:18px;
+
+color:#e2e8f0;
+
+}
+
+
+.close-popup{
+
+position:absolute;
+
+top:30px;
+
+right:40px;
+
+font-size:40px;
+
+cursor:pointer;
+
+}
+
+
+
+@keyframes zoom{
+
+from{
+
+transform:scale(.5);
+
+opacity:0;
+
+}
+
+to{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+}
+.arrow{
+
+position:absolute;
+
+top:50%;
+
+transform:translateY(-50%);
+
+font-size:40px;
+
+background:rgba(255,255,255,.15);
+
+color:white;
+
+border:none;
+
+width:60px;
+
+height:60px;
+
+border-radius:50%;
+
+cursor:pointer;
+
+backdrop-filter:blur(10px);
+
+}
+
+
+.left{
+
+left:30px;
+
+}
+
+
+.right{
+
+right:30px;
+
+}
+
+
+.close-popup{
+
+position:absolute;
+
+top:20px;
+
+right:30px;
+
+font-size:45px;
+
+cursor:pointer;
+
+z-index:10;
+
+}
 
 
 </style>
@@ -541,7 +701,14 @@ something small that changes everything.
 </p>
 
 <div class="placeholder">
-    <img src="image1.jpg" alt="">
+
+<img 
+src="image1.jpg"
+onclick="openImage(
+'image1.jpg',
+'This was the first chapter of our journey. A small moment that became a beautiful memory ❤️'
+)"
+>
 
 </div>
 
@@ -560,11 +727,16 @@ Some memories become unforgettable.
 The laughter, celebrations and moments
 that made life brighter.
 </p>
-
 <div class="placeholder">
-    <img src="image2.jpg" alt="">
-</div>
+<img 
+src="image2.jpg"
 
+onclick="openImage(
+'image2.jpg',
+'The moments filled with laughter, happiness and memories that will always stay special ✨'
+)"
+>
+</div>
 </div>
 
 <div class="chapter">
@@ -581,7 +753,14 @@ Every destination became another memory.
 </p>
 
 <div class="placeholder">
-    <img src="image3.jpg" alt="">
+
+<img 
+src="image1.jpg"
+onclick="openImage(
+'image3.jpg',
+`Every journey created new stories.Every destination became another memory`)"
+>
+
 </div>
 
 </div>
@@ -601,7 +780,14 @@ The story continues...
 </p>
 
 <div class="placeholder">
- <img src="image4.jpg" alt="">
+
+<img 
+src="image1.jpg"
+onclick="openImage(
+'image1.jpg',
+`The most beautiful thing about memories is that they never stop growing.The story continues...`)"
+>
+
 </div>
 
 </div>
@@ -796,7 +982,176 @@ btn.addEventListener("click", async () => {
 window.addEventListener("load", () => {
   updateButton();
 });
+const memories = [
+
+{
+img:"image1.jpg",
+text:"✨ The beginning of a beautiful chapter. A small moment that became a lifetime memory ❤️"
+},
+
+{
+img:"image2.jpg",
+text:"🎉 Moments filled with laughter, happiness and unforgettable memories."
+},
+
+{
+img:"image3.jpg",
+text:"🌍 Every journey created another beautiful story to remember."
+},
+
+{
+img:"image4.jpg",
+text:"❤️ Some memories never fade, they stay forever in our hearts."
+}
+
+];
+
+
+let currentImage = 0;
+
+
+
+function openImage(image,text){
+
+
+currentImage =
+memories.findIndex(item=>item.img===image);
+
+
+showImage();
+
+
+document
+.getElementById("imagePopup")
+.style.display="flex";
+
+
+}
+
+
+
+function showImage(){
+
+
+document
+.getElementById("popupImage")
+.src =
+memories[currentImage].img;
+
+
+document
+.getElementById("popupText")
+.innerHTML =
+memories[currentImage].text;
+
+
+}
+
+
+
+
+function nextImage(e){
+
+e.stopPropagation();
+
+
+currentImage++;
+
+
+if(currentImage >= memories.length){
+
+currentImage=0;
+
+}
+
+
+showImage();
+
+
+}
+
+
+
+
+
+function prevImage(e){
+
+e.stopPropagation();
+
+
+currentImage--;
+
+
+if(currentImage < 0){
+
+currentImage =
+memories.length-1;
+
+}
+
+
+showImage();
+
+
+}
+
+
+
+
+
+function closeImage(){
+
+
+document
+.getElementById("imagePopup")
+.style.display="none";
+
+
+}
+
+
+
+
+
+function closeOutside(e){
+
+
+if(e.target.id==="imagePopup"){
+
+closeImage();
+
+}
+
+
+}
 </script>
+<!-- IMAGE POPUP -->
+
+<div class="image-popup" id="imagePopup" onclick="closeOutside(event)">
+
+
+<span class="close-popup">
+×
+</span>
+
+
+<button class="arrow left" onclick="prevImage(event)">
+❮
+</button>
+
+
+<img id="popupImage">
+
+
+<button class="arrow right" onclick="nextImage(event)">
+❯
+</button>
+
+
+<div class="popup-text" id="popupText"></div>
+
+
+</div>
 </body>
 
 
